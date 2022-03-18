@@ -45,6 +45,7 @@ namespace ADX2LEDemo {
         private void PlayerDamage() {
             alreadyDamege = true;
             PlayerStatus.Instance.Damage();
+            GameSystem.Instance.AddDestroyTargetNum();
             Destroy(gameObject);
         }
 
