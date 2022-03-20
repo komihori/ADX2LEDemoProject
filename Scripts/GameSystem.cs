@@ -1,3 +1,4 @@
+using ADX2LEDemoAssets.Scripts.Player;
 using ADX2LEDemoAssets.Scripts.UtilClass;
 using UnityEngine;
 
@@ -29,7 +30,8 @@ namespace ADX2LEDemo.Scripts {
                 Destroy(this);
                 return;
             }
-            PlayerGenerate();
+            
+            new PlayerGenerator().PlayerGenerate();
         }
 
         void Start() {
@@ -52,32 +54,7 @@ namespace ADX2LEDemo.Scripts {
                 GameOver();
             }
         }
-
-        private void PlayerGenerate() {
-            GameObject player = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-            player.tag = "Player";
-            player.name = "Player";
-            player.transform.position = new Vector3(70, 1, 70);
-            player.GetComponent<CapsuleCollider>().isTrigger = true;
-            Rigidbody rb = player.AddComponent<Rigidbody>();
-            rb.useGravity = false;
-            rb.constraints = RigidbodyConstraints.FreezeAll;
-            Camera.main.transform.SetParent(player.transform);
-            Camera.main.transform.localPosition = new Vector3(0f, 1.3f, 0f);
-            Camera.main.transform.localRotation = Quaternion.Euler(new Vector3(0, 90, 0));
-            GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            cube.transform.SetParent(player.transform);
-            cube.transform.localPosition = new Vector3(0.7f, 0.8f, -0.54f);
-            cube.transform.localRotation = Quaternion.Euler(new Vector3(0f, -8.31f, 0f));
-            cube.transform.localScale = new Vector3(1.6f, 0.4f, 0.4f);
-            GameObject shotPos = new GameObject("ShotPos");
-            shotPos.transform.SetParent(cube.transform);
-            shotPos.transform.localPosition = new Vector3(0.5f, 0f, 0f);
-            player.AddComponent<PlayerRotation>();
-            player.AddComponent<PlayerStatus>();
-            player.AddComponent<Shot>().SetParams(shotPos.transform);
-        }
-
+        
         public void AddScore(int addScore) => score += addScore;
 
         public void AddDestroyTargetNum() {
