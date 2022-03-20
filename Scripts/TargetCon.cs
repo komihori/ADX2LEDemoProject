@@ -1,11 +1,12 @@
+using ADX2LEDemoAssets.Scripts.UtilClass;
 using UnityEngine;
 
-namespace ADX2LEDemo {
+namespace ADX2LEDemo.Scripts {
     public class TargetCon : MonoBehaviour {
         int score = 100;
         float speed = 0.01f;
         int hp = 1;
-        bool alreadyDamege = false;
+        bool alreadyDamage = false;
 
         void Start() {
             gameObject.tag = "Target";
@@ -14,7 +15,7 @@ namespace ADX2LEDemo {
         }
 
         void Update() {
-            if (GameSystem.Instance.GetGameOver())
+            if (GameSystem.Instance.GetGameOver)
                 return;
             transform.position = Vector3.MoveTowards(transform.position, PlayerStatus.Instance.transform.position, speed);
         }
@@ -28,12 +29,12 @@ namespace ADX2LEDemo {
         }
 
         private void OnTriggerEnter(Collider other) {
-            if (!alreadyDamege) {
-                if (other.CompareTag("Bullet")) {
+            if (!alreadyDamage) {
+                if (other.CompareTag(TagStrings.Bullet)) {
                     hp--;
                     if(hp <= 0)
                         DefeatTarget();
-                } else if (other.CompareTag("Player")) {
+                } else if (other.CompareTag(TagStrings.Player)) {
                     PlayerDamage();
                 }
             } else {
@@ -43,9 +44,8 @@ namespace ADX2LEDemo {
         }
 
         private void PlayerDamage() {
-            alreadyDamege = true;
+            alreadyDamage = true;
             PlayerStatus.Instance.Damage();
-            GameSystem.Instance.AddDestroyTargetNum();
             Destroy(gameObject);
         }
 

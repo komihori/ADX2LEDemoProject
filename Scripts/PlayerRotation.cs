@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ADX2LEDemo {
+namespace ADX2LEDemo.Scripts {
     public class PlayerRotation : MonoBehaviour {
 
         [SerializeField] float speed = 1.0f;
@@ -8,7 +8,7 @@ namespace ADX2LEDemo {
         bool cursorLock = true;
 
         void Update() {
-            if (GameSystem.Instance.GetGameOver())
+            if (GameSystem.Instance.GetGameOver)
                 return;
 
             float y = Input.GetAxis("Mouse X") * speed + transform.rotation.eulerAngles.y;
@@ -19,7 +19,7 @@ namespace ADX2LEDemo {
             UpdateCursorLock();
         }
 
-        public void UpdateCursorLock() {
+        private void UpdateCursorLock() {
             if (Input.GetKeyDown(KeyCode.Escape)) {
                 cursorLock = false;
             } else if (Input.GetMouseButton(0)) {

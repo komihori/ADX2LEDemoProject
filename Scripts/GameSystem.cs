@@ -1,6 +1,7 @@
+using ADX2LEDemoAssets.Scripts.UtilClass;
 using UnityEngine;
 
-namespace ADX2LEDemo {
+namespace ADX2LEDemo.Scripts {
     public class GameSystem : MonoBehaviour {
         public static GameSystem Instance { get; private set; }
 
@@ -16,10 +17,10 @@ namespace ADX2LEDemo {
 
         private GUIStyle style;
 
-        bool gameOver = false;
+        private bool gameOver = false;
 
-        float guiX = 10;
-        float guiY = 10;
+        private float guiX = 10;
+        private float guiY = 10;
 
         private void Awake() {
             if (GameSystem.Instance == null) {
@@ -47,12 +48,12 @@ namespace ADX2LEDemo {
                 }
                 nowTargetNum++;
             }
-            if (PlayerStatus.Instance.GetHP() <= 0) {
+            if (PlayerStatus.Instance.GetHP <= 0) {
                 GameOver();
             }
         }
 
-        public void PlayerGenerate() {
+        private void PlayerGenerate() {
             GameObject player = GameObject.CreatePrimitive(PrimitiveType.Capsule);
             player.tag = "Player";
             player.name = "Player";
@@ -84,7 +85,7 @@ namespace ADX2LEDemo {
             destroyTargetNum++;
         }
 
-        public void GenerateTarget(int hp) {
+        private void GenerateTarget(int hp) {
             GameObject target = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             target.name = "Target";
             target.transform.localScale = new Vector3(2f, 0.1f, 2f);
@@ -93,7 +94,7 @@ namespace ADX2LEDemo {
             target.AddComponent<TargetCon>().SetParams(hp);
         }
 
-        public Vector3 RandomSpownPos() {
+        private Vector3 RandomSpownPos() {
             float[] xPos = { Random.Range(30f, 50f), Random.Range(90f, 110f) };
             float[] zPos = { Random.Range(30f, 50f), Random.Range(90f, 110f) };
             return new Vector3(xPos[Random.Range(0, 2)], 1f, zPos[Random.Range(0, 2)]);
@@ -107,16 +108,16 @@ namespace ADX2LEDemo {
             gameOver = true;
         }
 
-        public bool GetGameOver() => gameOver;
+        public bool GetGameOver => gameOver;
 
         private void OnGUI() {
             Rect rect = new Rect(0, 540, 1920, 400);
             if (!gameOver) {
-                GUI.Label(rect, string.Format("Score:{0}\nHP:{1}", score, PlayerStatus.Instance.GetHP()), style);
+                GUI.Label(rect, string.Format("Score:{0}\nHP:{1}", score, PlayerStatus.Instance.GetHP), style);
             } else {
                 GUI.Label(rect, "GameOver\n" + score.ToString(), style);
                 if (GUI.Button(new Rect(guiX, guiY, 400, 300), "Reset"))
-                    UnityEngine.SceneManagement.SceneManager.LoadScene("SampleScene");
+                    UnityEngine.SceneManagement.SceneManager.LoadScene(SceneStrings.SampleScene);
 
             }
 

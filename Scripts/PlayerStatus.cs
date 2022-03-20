@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ADX2LEDemo {
+namespace ADX2LEDemo.Scripts {
     public class PlayerStatus : MonoBehaviour {
         public static PlayerStatus Instance { get; private set; }
 
@@ -15,7 +15,7 @@ namespace ADX2LEDemo {
             }
         }
 
-        public int GetHP() => hp;
+        public int GetHP => hp;
         public int Damage() => hp--;
 
     }

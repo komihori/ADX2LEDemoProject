@@ -1,6 +1,7 @@
+using ADX2LEDemoAssets.Scripts.UtilClass;
 using UnityEngine;
 
-namespace ADX2LEDemo {
+namespace ADX2LEDemo.Scripts {
     public class Shot : MonoBehaviour {
         [SerializeField] float span = 0.5f;
         [SerializeField] Transform shotPos;
@@ -28,7 +29,7 @@ namespace ADX2LEDemo {
         private void BulletGenerate() {
             GameObject bullet = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             bullet.name = "Bullet";
-            bullet.tag = "Bullet";
+            bullet.tag = TagStrings.Bullet;
             bullet.transform.position = shotPos.transform.position;
             bullet.transform.rotation = this.transform.rotation;
             bullet.transform.localScale = Vector3.one * 0.5f;
@@ -48,7 +49,7 @@ namespace ADX2LEDemo {
             }
 
             private void Update() {
-                if (GameSystem.Instance.GetGameOver())
+                if (GameSystem.Instance.GetGameOver)
                     return;
 
                 rb.velocity = transform.right * speed;
@@ -58,7 +59,7 @@ namespace ADX2LEDemo {
             }
 
             private void OnTriggerEnter(Collider other) {
-                if (other.CompareTag("Target")) {
+                if (other.CompareTag(TagStrings.Target)) {
                     //Destroy(other.gameObject);
                     Destroy(gameObject);
                 }
