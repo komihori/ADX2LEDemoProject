@@ -1,7 +1,7 @@
-﻿namespace ADX2LEDemoAssets.Scripts.UtilClass
+﻿namespace ADX2LEDemo.Scripts.UtilClass
 {
     public static class SceneStrings
     {
-        public const string SampleScene = "SampleScene";
+        public static string SampleScene = "SampleScene";
     }
 }
